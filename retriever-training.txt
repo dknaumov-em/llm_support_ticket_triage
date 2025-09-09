@@ -1,0 +1,21 @@
+#!/bin/bash --login
+
+#SBATCH -p gpuV
+#SBATCH --gpus=1
+#SBATCH -n 8
+#SBATCH -t 0-3
+#SBATCH -J dual_encoder_finetuning
+
+
+# Load software (modules)
+module purge
+module load apps/binapps/conda/25.3.0
+
+# Activate environment
+source activate llm-environment
+
+# Inform app how many cores to use
+export OMP_NUM_THREADS=$SLURM_NTASKS
+
+# Run application
+python Retriever-training.py
