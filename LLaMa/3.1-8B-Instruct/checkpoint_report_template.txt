@@ -1,0 +1,31 @@
+//Fine-tuning checkpoint//
+
+Datetime: {0}
+Training type: {1}
+Last training step: {2}
+Last epoch: {3}
+Epoch train losses: {4}
+Epoch validation losses: {5}
+Epoch train perplexities: {6}
+Epoch validation perplexities: {7}
+Checkpoint source: {8}
+
+Last batch CE losses: {9}
+
+//Hyperparameters//
+
+Attention base learning rate: {10}
+Feed-forward base learning rate: {11}
+Norm base learning rate: {12}
+Head base learning rate: {13}
+Weight decay: {14}
+Bias decay: {15}
+Norm decay: {16}
+Layer learning rate decay: {17}
+LR Warmup: {18}
+LR Scheduling: One cycle cosine annealing
+Max number of epochs: {19}
+Batch size: {20}
+
+Magnitude drift lambda: {21}
+Magnitude drift warmup: {22}
