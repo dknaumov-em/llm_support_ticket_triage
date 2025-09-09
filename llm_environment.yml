@@ -1,0 +1,14 @@
+name: llm-data-transform-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12.7
+  - numpy
+  - pandas
+  - tqdm
+  - pytorch
+  - transformers
+  - safetensors
+  - pip
+

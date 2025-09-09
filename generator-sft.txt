@@ -1,0 +1,27 @@
+#!/bin/bash --login
+
+#SBATCH -p gpuA
+#SBATCH --gpus=2
+#SBATCH -n 24
+#SBATCH -t 4-0
+#SBATCH -J llama-sft
+
+
+# Load software (modules)
+module purge
+module load apps/binapps/conda/25.3.0
+
+# Activate environment
+source activate llm-environment
+
+# Declare HPC environment variables
+export OMP_NUM_THREADS=$SLURM_NTASKS
+export MASTER_ADDR=$(scontrol show hostnames $SLURM_NODELIST | head -n 1)
+export MASTER_PORT=$((12000 + $SLURM_JOB_ID % 10000))
+export RANK=$SLURM_PROCID
+export WORLD_SIZE=$SLURM_NTASKS
+
+export PYTORCH_CUDA_ALLOC_CONF=garbage_collection_threshold:0.6,expandable_segments:True,max_split_size_mb:128
+
+# Run application
+python Generator-SFT.py

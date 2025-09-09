@@ -1,0 +1,21 @@
+#!/bin/bash --login
+
+#SBATCH -p gpuA
+#SBATCH --gpus=2
+#SBATCH -n 24
+#SBATCH -t 1-0
+#SBATCH -J llama_data_summarization
+
+
+# Load software (modules)
+module purge
+module load apps/binapps/conda/25.3.0
+
+# Activate environment
+source activate llm-environment
+
+# Inform app how many cores to use
+export OMP_NUM_THREADS=$SLURM_NTASKS
+
+# Run application
+python Data-llm-summarize.py
