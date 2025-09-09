@@ -1,0 +1,1 @@
+After index initialization this folder is expected to contain index_id_db_map.json, ticket_answer_embeddings.index, ticket_query_embeddings.index files.
