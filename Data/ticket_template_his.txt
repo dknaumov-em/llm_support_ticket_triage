@@ -1,0 +1,6 @@
+  Created: {created_date}
+  Activity type: {activity}
+
+Activity description:
+
+{a_desc}

@@ -1,0 +1,13 @@
+Solution metadata:
+
+  Urgency code: {urgency}
+  Resolution summary: {res_sum}
+  Keywords: {keywords}
+
+Solution:
+
+{solution}
+
+Ticket status history:
+
+{ticket_status_his}

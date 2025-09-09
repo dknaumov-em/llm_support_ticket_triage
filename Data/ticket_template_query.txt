@@ -1,0 +1,12 @@
+Ticket metadata:
+
+  Ticket ID: {tid}
+  Subject: {subject}
+  Category: {cat}
+  Issue: {issue_type}
+  Received Date: {received_date}
+  Keywords: {keywords}
+
+Query:
+
+{problem}

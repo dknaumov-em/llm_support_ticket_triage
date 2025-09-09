@@ -1,0 +1,510 @@
+  Ticket ID: nan
+  Subject: [REDACTED]
+  Category: S1000v4
+  Issue: nan
+  Received Date: nan
+  Keywords: nan
+
+Query:
+
+We have a process whereby we receipt stock in that has been sent direct from our supplier to our customer, and allocate that same stock up directly to the sales order to allow us to invoice it out to the customer. The stock doesn't ever physically arrive here – it is more an admin function to allow us to create the sales invoice to the customer. In the [REDACTED] company, we only have one warehouse (T1) and don't have the distinction between pick and bulk that we have in [REDACTED].
+Some of the products we have set up in RalaTeam have been set with the traceability field set to N and some to B (appears to be a case of the products we initially imported as part of the set up were B but new products we put in we are doing as N).
+Where the products are set to N, we are not able to follow our normal ship direct process as we don't get the option to create the batch and therefore it works on FIFO basis rather than allowing us to select the relevant batch we have just receipted on. This causes issue with margin etc.
+Is there another way to achieve what we need to? If not, what are the implications of updating the products set to 'N' to ‘B'?
+
+Solution metadata:
+ 
+  Urgency code: 3
+  Resolution summary: nan
+  Keywords: nan
+
+Solution:
+
+Tested change of traceability from from N to B appears to work okay so advised for  to test in demo to ensure this is going to suit their processes.  
+ confirmed all now okay - have now updated products to B
+
+Ticket status history:
+
+  Created: nan
+  Activity type: Outbound Email
+
+Activity description:
+
+Hi [REDACTED_NAME],
+I cannot think of another way of achieving this.  I have ran some testing internally, even if I have a product set up as ‘N’ for traceability the system still writes a batch to the stock queue table stquem, with no lot no. or bin no. however it still updates with the standard cost.  So changing the traceability flag on the stock master file may be the solution.  I have tested in house but my system is not allowing me to allocate the batches and is allocating on a FIFO basis in order entry (this may be down to setup).  I think this is worth a test on your demo [REDACTED_BUSINESS] to ensure this will work as you require.
+[REDACTED_NAME] me know if I can assist any further
+[REDACTED_NAME] regards
+[REDACTED_NAME]
+
+  Created: nan
+  Activity type: Internal Activity
+
+Activity description:
+
+[REDACTED_NAME]
+
+  Created: nan
+  Activity type: Sent E-mail
+
+Activity description:
+
+TO :  #: [REDACTED] [REDACTED_NAME] on  [REDACTED]  you manage to run a test on your demo system to see if changing the traceability flag on the stock record would be a suitable solution for you.  Do you ever use back to back orders, where we raise an order in order entry as a back to back &#8211; this generates a Purchase order, once he purchase order is receipted the sales order status updates to despatches, so does not affect any stock coming in or out as such.  [REDACTED_NAME] this work for your processes were you have direct supplier shipped orders ?
+[REDACTED_NAME] regards
+[REDACTED_NAME]
+
+  Created: nan
+  Activity type: Sent E-mail
+
+Activity description:
+
+Hi  you are well.  [REDACTED_NAME] wondering if you have managed to test the change of the traceability flag on the stock in demo to see if this is going to suit going forward.  [REDACTED_NAME] I assist any further
+[REDACTED_NAME] regards
+[REDACTED_NAME]
+
+  Created: nan
+  Activity type: Inbound Email
+
+Activity description:
+
+Hi [REDACTED_NAME],
+ 
+We changed them all to B and tested one through and all worked as expected thank you. [REDACTED_NAME] can close now.
+ 
+[REDACTED_NAME] thanks,
+[REDACTED_NAME]
+|<[sep1]>|
+[Urgency: 3]
+
+### Suggested Consultant Approach
+
+**Problem Context**  
+The customer is using a _direct-ship process_ where stock from a supplier is receipted in the system and allocated directly to a sales order for invoicing, without physically entering their warehouse (T1).  
+Issue arises with **product traceability setup**:
+
+*   Products flagged as **N (non-traceable)** → system allocates on FIFO, no batch creation option.
+    
+*   Products flagged as **B (batch traceable)** → allows batch allocation, aligns better with their intended process.  
+    This mismatch creates problems with order allocation and margin visibility.
+    
+
+* * *
+
+**Investigation & Troubleshooting Suggestions**
+
+1.  **Check product master data:**
+    
+    *   Compare settings for items marked as “N” vs. “B”.
+        
+    *   Confirm whether all new products are being created consistently under one traceability method.
+        
+2.  **Test traceability flag adjustment:**
+    
+    *   In a demo or test environment, change one product from “N” → “B”.
+        
+    *   Verify whether this enables batch selection during allocation to a sales order.
+        
+    *   Assess if this has unintended consequences (e.g., reporting changes, compliance obligations, added user overhead).
+        
+3.  **Explore alternative processes:**
+    
+    *   If batch traceability is not desirable globally, consider whether _back-to-back orders_ could be used instead (SO generates linked PO, receipted directly to SO status, avoiding physical stock handling).
+        
+    *   Evaluate whether system configuration allows overriding FIFO allocation rules under “N”.
+        
+4.  **Margin control check:**
+    
+    *   Investigate how FIFO allocation is currently impacting cost vs. margin reporting.
+        
+    *   Ensure switching traceability setting does not introduce inconsistencies in valuation.
+        
+
+* * *
+
+**Recommendations**
+
+*   Begin with a **controlled test** of the traceability flag change in demo.
+    
+*   Validate order entry behavior, allocation, and invoicing outcomes.
+    
+*   If results are consistent with the customer’s required process, update product setup accordingly.
+    
+*   Keep back-to-back ordering as a possible fallback option if traceability changes prove impractical.
+    
+*   Document the chosen setup as a standard for future product imports to prevent similar mismatches.
+
+**Relevant Information**
+
+* **Traceability Flags in Sage**  
+  * “N” (Non-traceable): Items allocated purely on FIFO; no user control over batch selection.  
+  * “B” (Batch-traceable): Items require explicit batch allocation, giving greater control over stock flow and traceability compliance.  
+
+* **Direct-ship vs. Back-to-back Orders**  
+  * Direct-ship: Stock receipted against a purchase order and immediately allocated to a sales order without warehouse storage.  
+  * Back-to-back: System-generated PO linked directly to the SO; simplifies allocation and often avoids FIFO conflicts.  
+
+* **Impact on Margins**  
+  * FIFO under “N” may allocate unexpected cost layers, leading to margin fluctuations.  
+  * “B” allows more consistent cost alignment if the same batch can be tied from receipt through to invoicing.  
+
+* **Compliance Note**  
+  * If traceability is regulated in the customer’s industry, switching flags may trigger additional recordkeeping or audit requirements.
+|<[sep2]>|
+Ticket metadata:
+
+  Ticket ID: nan
+  Subject: User enquiry
+  Category: S1000v3
+  Issue: nan
+  Received Date: nan
+  Keywords: nan
+
+Query:
+
+One of our users has requested the following:
+
+I have allocated a credit amount to the wrong payment on RBH and was wondering whether there is a way we can undo this?
+
+The username of the user is [REDACTED]
+
+Could you please advise? Solution metadata:
+ 
+  Urgency code: 3
+  Resolution summary: nan
+  Keywords: nan
+
+Solution:
+
+Licenced DA0800 in RBH and  to allow batch to be reopened.
+
+Ticket status history:
+
+  Created: nan
+  Activity type: Outbound Email
+
+Activity description:
+
+,
+An item can be reopened by using the option shown below. [REDACTED_NAME] make sure that as you load the option you do not get the message that DA0800 is not installed. If you do get the message, let me know and I’ll licence the project for you.
+[REDACTED_NAME] just need to enter the cash batch/credit note that was matched in error. [REDACTED_NAME] will list the items linked to these transactions so you can check it’s the correct one.
+If it’s showing the correct transactions you can re-open the items
+[REDACTED_NAME] let me know if this helps.
+[REDACTED_NAME] regards
+
+[REDACTED_NAME] you please advise?
+
+  Created: nan
+  Activity type: Outbound Email
+
+Activity description:
+
+Hi  additional project can be licenced by Support and there is no cost in making this change.
+I’ve attached the project documentation for you to read.
+[REDACTED_NAME] regards
+Hi [REDACTED_NAME],
+Is the license free or will this cost us more money?
+[REDACTED_NAME],
+fabian
+
+An item can be reopened by using the option shown below. [REDACTED_NAME] make sure that as you load the option you do not get the message that DA0800 is not installed. If you do get the message, let me know and I’ll licence the project for you.
+[REDACTED_NAME] just need to enter the cash batch/credit note that was matched in error. [REDACTED_NAME] will list the items linked to these transactions so you can check it’s the correct one.
+If it’s showing the correct transactions you can re-open the items
+[REDACTED_NAME] let me know if this helps.
+[REDACTED_NAME] regards
+
+  Created: nan
+  Activity type: Outbound Email
+
+Activity description:
+
+Hi  could you let me have the  details and I’ll get connected and make the change.
+[REDACTED_NAME] confirm which  you need DA0800 to be licenced in.
+[REDACTED_NAME] regards
+
+Hi , please go ahead and enable that. We will create an emergency change. [REDACTED_NAME] let me know once this is done.
+[REDACTED_NAME] regards,
+
+Hi  additional project can be licenced by Support and there is no cost in making this change.
+I’ve attached the project documentation for you to read.
+[REDACTED_NAME] regards
+
+Hi [REDACTED_NAME],
+Is the license free or will this cost us more money?
+[REDACTED_NAME],
+fabian
+
+An item can be reopened by using the option shown below. [REDACTED_NAME] make sure that as you load the option you do not get the message that DA0800 is not installed. If you do get the message, let me know and I’ll licence the project for you.
+[REDACTED_NAME] just need to enter the cash batch/credit note that was matched in error. [REDACTED_NAME] will list the items linked to these transactions so you can check it’s the correct one.
+If it’s showing the correct transactions you can re-open the items
+[REDACTED_NAME] let me know if this helps.
+[REDACTED_NAME] regards
+
+  Created: nan
+  Activity type: Outbound Email
+
+Activity description:
+
+H [REDACTED_NAME],
+Of course. [REDACTED_NAME] could you provide the HostPass and  to enable me to get connected onto the server and make the reqyured changes.
+[REDACTED_NAME] regards
+
+Hi  we please get this for both RBH and [REDACTED_NAME] internationals.
+
+To:
+Hi  could you let me have the  details and I’ll get connected and make the change.
+[REDACTED_NAME] confirm which  you need DA0800 to be licenced in.
+[REDACTED_NAME] regards
+
+Hi , please go ahead and enable that. We will create an emergency change. [REDACTED_NAME] let me know once this is done.
+[REDACTED_NAME] regards,
+
+Hi  additional project can be licenced by Support and there is no cost in making this change.
+I’ve attached the project documentation for you to read.
+[REDACTED_NAME] regards
+
+Hi [REDACTED_NAME],
+Is the license free or will this cost us more money?
+[REDACTED_NAME],
+fabian
+
+An item can be reopened by using the option shown below. [REDACTED_NAME] make sure that as you load the option you do not get the message that DA0800 is not installed. If you do get the message, let me know and I’ll licence the project for you.
+[REDACTED_NAME] just need to enter the cash batch/credit note that was matched in error. [REDACTED_NAME] will list the items linked to these transactions so you can check it’s the correct one.
+If it’s showing the correct transactions you can re-open the items
+[REDACTED_NAME] let me know if this helps.
+[REDACTED_NAME] regards
+
+  Created: nan
+  Activity type: Dialled Site
+
+Activity description:
+
+[REDACTED_NAME] DA0800 in RBH and .
+
+  Created: nan
+  Activity type: Outbound Email
+
+Activity description:
+
+Hi [REDACTED_NAME],
+I’ve licenced DA0800 in RBH and  as requested.
+[REDACTED_NAME] could you ask the end-user to check these options are working and let me know.
+If they require assistance on how to use the new functionality I’m more than happy to jump on a [REDACTED_NAME] call and step them through the process.
+[REDACTED_NAME] regards
+
+Hi  is the link to connect:
+https://passwordstate.obg.[REDACTED_BUSINESS]uk/selfdestruct/?id=0eb1f2dc72ec441ab418f8ac4d66ff34
+
+[REDACTED_NAME]
+H [REDACTED_NAME],
+Of course. [REDACTED_NAME] could you provide the HostPass and  to enable me to get connected onto the server and make the reqyured changes.
+[REDACTED_NAME] regards
+
+Hi  we please get this for both RBH and [REDACTED_NAME] internationals.
+
+Hi  could you let me have the  details and I’ll get connected and make the change.
+[REDACTED_NAME] confirm which  you need DA0800 to be licenced in.
+[REDACTED_NAME] regards
+
+Hi , please go ahead and enable that. We will create an emergency change. [REDACTED_NAME] let me know once this is done.
+[REDACTED_NAME] regards,
+
+Hi  additional project can be licenced by Support and there is no cost in making this change.
+I’ve attached the project documentation for you to read.
+[REDACTED_NAME] regards
+
+Hi [REDACTED_NAME],
+Is the license free or will this cost us more money?
+[REDACTED_NAME],
+fabian
+
+An item can be reopened by using the option shown below. [REDACTED_NAME] make sure that as you load the option you do not get the message that DA0800 is not installed. If you do get the message, let me know and I’ll licence the project for you.
+[REDACTED_NAME] just need to enter the cash batch/credit note that was matched in error. [REDACTED_NAME] will list the items linked to these transactions so you can check it’s the correct one.
+If it’s showing the correct transactions you can re-open the items
+[REDACTED_NAME] let me know if this helps.
+[REDACTED_NAME] regards
+
+  Created: nan
+  Activity type: Sent E-mail
+
+Activity description:
+
+
+let me know if you&#8217;re happy for this ticket to be closed or if a [REDACTED_NAME] call with the end-user is required.
+
+  Created: nan
+  Activity type: Inbound Email
+
+Activity description:
+
+Hi  just tested it now, and it seems to be working fine. [REDACTED_NAME] you so much for your help.
+[REDACTED_NAME] regards
+|<[sep1]>|
+[Urgency: 3]
+
+**Issue Summary**  
+A user mistakenly allocated a credit amount against the wrong payment in RBH and asked if there is a way to undo or reallocate the transaction.
+
+**Suggested Troubleshooting Approach**
+
+1. **Check Functional Options in RBH**
+    * Investigate whether the credit allocation can be reversed through the "Reopen" functionality in the cash/credit matching module.
+    * Confirm whether DA0800 (or equivalent functionality module) is installed and licensed; without this, certain reversal options may not be available.
+
+2. **System Licensing / Enablement**
+    * If DA0800 (or other batch-reopen option) is not enabled, request licensing from support. Licensing is usually free but may require an emergency change process depending on client policy.
+    * Verify that enabling the module does not create conflicts or require downtime.
+
+3. **Operational Steps for Reversal**
+    * Locate the specific cash batch or credit note that was matched in error.
+    * Review linked transactions to confirm they correspond to the incorrect allocation.
+    * Reopen the item, which should make the original credit available for correct reallocation.
+
+4. **Engage with the User**
+    * Provide clear steps on how to navigate to the option and verify that the correct transaction is being reopened.
+    * Offer to walk the end-user through the process via a call or screenshare if needed.
+
+**Potential Resolution Paths**
+
+* Enable DA0800 licensing (if not already installed) to allow batch reopening.
+* Reopen the specific credit allocation and re-match it against the correct payment.
+* Validate with the user that the credit is now properly visible and allocated.
+
+**Relevant Information**
+
+* **RBH Credit/Cash Matching**  
+  * The matching module controls allocation of payments, credits, and invoices. Once committed, items are normally locked.  
+  * A “Reopen” function (if licensed) allows reversing a match so the transaction can be reassigned.  
+
+* **DA0800 Module**  
+  * Adds functionality for batch reopening.  
+  * Often included in licensing at no extra cost, but may need to be explicitly enabled.  
+  * Without it, credits locked in error typically require manual workarounds.  
+
+* **Operational Risk**  
+  * Incorrect allocations can distort aged debtors reporting and cash flow reconciliations.  
+  * Reversal actions should be logged and, where possible, performed by senior finance staff to maintain audit integrity.  
+
+* **Best Practices**  
+  * Encourage double-checking allocations before posting.  
+  * Use role-based controls to limit who can perform credit reassignments.  
+  * Maintain clear documentation for finance teams on how to undo or correct allocations.
+|<[sep2]>|
+Ticket metadata:
+
+  Ticket ID: nan
+  Subject: nan
+  Category: S1000v4
+  Issue: Inventory
+  Received Date: nan
+  Keywords: nan
+
+Query:
+
+Is there any way of finding out who is in a stock record please?  
+
+The record below has been locked all afternoon but I don't know if it's a PO, SO or stock process that's locking it.  I've emailed out to all sage users to come out of it but so far it's still locked. 
+
+Solution metadata:
+ 
+  Urgency code: 3
+  Resolution summary: nan
+  Keywords: nan
+
+Solution:
+
+Cleared DefCapture process that was locking the record.
+
+Ticket status history:
+
+  Created: nan
+  Activity type: Outbound Email
+
+Activity description:
+
+ can’t find that information directly in [REDACTED_NAME] but we have a SQL script that can identify any locks.
+I’ll need access to the server, so please could you request TeamViewer details and I’ll get connected and clear the lock.
+[REDACTED_NAME] regards
+
+Is there any way of finding out who is in a stock record please?
+[REDACTED_NAME] record below has been locked all afternoon but I don’t know if it’s a PO, SO or stock process that’s locking it. I’ve emailed out to all sage users to come out of it but so far it’s still locked.
+
+  Created: nan
+  Activity type: Dialled Site
+
+Activity description:
+
+DefCapture was locking the record - cleared fs.exe.
+
+  Created: nan
+  Activity type: E-mail
+
+Activity description:
+
+ to our script DefCapture is locking the stock record.
+I’ve cleared this process so the stock record should be ok now.
+[REDACTED_NAME] could you check and let me know.
+[REDACTED_NAME] regards
+
+Is there any way of finding out who is in a stock record please?
+[REDACTED_NAME] record below has been locked all afternoon but I don’t know if it’s a PO, SO or stock process that’s locking it. I’ve emailed out to all sage users to come out of it but so far it’s still locked.
+[REDACTED_NAME] thanks
+
+  Created: nan
+  Activity type: Inbound Email
+
+Activity description:
+
+Hi  thanks for your help with this.
+
+Hi  sorted now and batch is now posted
+Regards
+
+Hi  would you try now and let us know if it’s working for you?
+[REDACTED_NAME] thanks
+
+[EXTERNAL]
+ to our script DefCapture is locking the stock record.
+I’ve cleared this process so the stock record should be ok now.
+[REDACTED_NAME] could you check and let me know.
+
+Is there any way of finding out who is in a stock record please?
+[REDACTED_NAME] record below has been locked all afternoon but I don’t know if it’s a PO, SO or stock process that’s locking it. I’ve emailed out to all sage users to come out of it but so far it’s still locked.
+[REDACTED_NAME] thanks
+|<[sep1]>|
+[Urgency: 3]
+
+**Issue Summary**  
+A stock record has been locked for several hours, and the user cannot determine whether a PO, SO, or stock process is causing the lock. The user requested assistance to identify and clear the lock.
+
+**Suggested Troubleshooting Approach**
+
+1. **Identify Locking Process**
+    * Use a SQL script designed to identify active locks on stock records.
+    * Check for processes like DefCapture, fs.exe, or other system processes that may hold the lock.
+
+2. **Access and Clearance**
+    * Request TeamViewer or equivalent remote access from the user.
+    * Connect to the server and locate the locking process.
+    * Safely terminate or clear the process holding the lock (in this case, DefCapture).
+
+3. **Validation**
+    * Confirm that the stock record is now unlocked.
+    * Ensure that the relevant batch can be posted or processed without further issues.
+
+**Potential Resolution Paths**
+
+* Clear the DefCapture process locking the record.  
+* Verify no other users or processes are holding locks on the stock record.  
+* Use the SQL script to monitor for similar locks in the future.
+
+**Further Recommendations**
+
+* Keep a documented escalation path for when records remain locked despite user logouts.  
+* Encourage users to close records promptly after processing to reduce lock frequency.  
+* Consider scheduling routine monitoring scripts to capture lock causes automatically.  
+
+**Relevant Information**  
+
+* **DefCapture process** – A known background task that can sometimes hold onto stock records, preventing other transactions. Clearing this process typically resolves locking issues.  
+* **Record Locking in Sage** – Locks occur when a transaction is open in memory; if not released properly (e.g., user crash, background process), records remain inaccessible.  
+* **Best Practice** – Running large batch postings during low-activity periods reduces chances of encountering locks.  
+
